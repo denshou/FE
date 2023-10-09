@@ -27,12 +27,11 @@ export const ProductImg = styled.div`
   @media all and (max-width: 1235px) {
     max-height: 364px;
   }
-  @media all and (max-width: 768px) {
-    width: 100%;
-    max-height: 600px;
-    padding: 0 20px;
-    box-sizing: border-box;
-  }
+  // @media all and (max-width: 768px) {
+  //   max-height: 600px;
+  //   padding: 0 20px;
+  //   box-sizing: border-box;
+  // }
 
   .slick-slider .slick-track,
   .slick-slider .slick-list {
