@@ -5,6 +5,8 @@ export const Section = styled.div`
   max-width: 1250px;
   margin: auto;
   margin-bottom: 10rem;
+  padding: 7.29rem 0;
+  
 `;
 export const ProductImg = styled.div`
   width: 60%;
@@ -107,6 +109,7 @@ export const ProductPrice = styled.div`
 font-size: 28px;
 color: #222;
 font-weight: bold;
+margin-bottom: 1rem;
 }
 `;
 export const SoldOut = styled.div`
@@ -116,14 +119,14 @@ export const TalbeRow = styled.div`
   display: flex;
   align-items: center;
   border-top: 1px solid #ececec;
-  border-bottom: 1px solid #ececec;
-  margin: 1rem 0;
+  margin: 0;
   padding: 2rem 0;
   font-size: 13px;
   font-weight: 400;
   width: 100%;
 `;
 export const TableHead = styled.div`
+  width: 2.5rem;
   padding-right: 3rem;
 `;
 export const TableData = styled.div`
@@ -216,6 +219,9 @@ export const TotalPriceDiv = styled.div`
   text-align: right;
   margin-bottom: 2rem;
   font-size: 13px;
+  border-top: 1px solid #ececec;
+  padding-top:1rem;
+  
 `;
 export const TotalPriceSpan = styled.span`
   font-size: 24px;
