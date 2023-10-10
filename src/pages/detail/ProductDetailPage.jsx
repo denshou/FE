@@ -23,16 +23,16 @@ const ProductDetailPage = () => {
   const [secondOptionSelected, setSecondOptionSelected] = useState(false);
   const [selectColor, setSelectColor] = useState("");
 
+  //첫 렌더링 시 제품의 색상 정보 불러오기
   const colorOptions = {};
   for (let i = 0; i < colors.length; i++) {
     colorOptions[colors[i]] = { s: 0, m: 0, l: 0 };
   }
   useEffect(() => {
     setSize(colorOptions);
-    console.log("size", size);
   }, []);
 
-  //재고 없을 시 품절 표시 위함
+  //재고 없을 시 재고없음 표시 위함
   let stock = {};
   let totalStock = { [colors[0]]: 0, [colors[1]]: 0, [colors[2]]: 0 };
   for (let i = 0; i < colors.length; i++) {
@@ -302,7 +302,7 @@ const ProductDetailPage = () => {
         value={color}
         disabled={totalStock[color] === 0 ? true : false}
       >
-        {color} {totalStock[color] === 0 && "[품절]"}
+        {color} {totalStock[color] === 0 && "[재고없음]"}
       </option>
     );
   };
@@ -317,21 +317,21 @@ const ProductDetailPage = () => {
               value={color + "s"}
               disabled={productData.stock[color].s === 0 ? true : false}
             >
-              S {productData.stock[color].s === 0 && "[품절]"}
+              S {productData.stock[color].s === 0 && "[재고없음]"}
             </option>
             <option
               key={color + "m"}
               value={color + "m"}
               disabled={productData.stock[color].m === 0 ? true : false}
             >
-              M {productData.stock[color].m === 0 && "[품절]"}
+              M {productData.stock[color].m === 0 && "[재고없음]"}
             </option>
             <option
               key={color + "l"}
               value={color + "l"}
               disabled={productData.stock[color].l === 0 ? true : false}
             >
-              L {productData.stock[color].l === 0 && "[품절]"}
+              L {productData.stock[color].l === 0 && "[재고없음]"}
             </option>
           </>
         )}
