@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ProductDetailPage = () => {
   const soldout = "../src/assets/images/soldout.png";
@@ -22,6 +22,16 @@ const ProductDetailPage = () => {
   const [firstOptionSelected, setFirstOptionSelected] = useState(false);
   const [secondOptionSelected, setSecondOptionSelected] = useState(false);
   const [selectColor, setSelectColor] = useState("");
+
+  const navigate = useNavigate();
+  const [auth, setAuth] = useState(false);
+
+  const handleCartBtn = () => {
+    if (!auth) {
+      window.alert("로그인이 필요합니다.");
+      navigate("/login");
+    }
+  };
 
   //첫 렌더링 시 제품의 색상 정보 불러오기
   const colorOptions = {};
@@ -535,7 +545,7 @@ const ProductDetailPage = () => {
         {productData.totalStock != 0 && (
           <>
             <S.LowBtnArea>
-              <S.LowBtn>장바구니</S.LowBtn>
+              <S.LowBtn onClick={handleCartBtn}>장바구니</S.LowBtn>
               <S.LowBtn>관심상품</S.LowBtn>
             </S.LowBtnArea>
           </>
