@@ -11,6 +11,8 @@ const ProductDetailPage = () => {
 
   const { data: productData } = useLocation().state;
 
+  
+
   const [isInitial, setIsInitial] = useState(true);
   const colors = Object.keys(productData.stock);
   const [size, setSize] = useState({

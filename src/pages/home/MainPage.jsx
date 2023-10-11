@@ -1,5 +1,14 @@
 import styled from "styled-components";
 import CardList from "../../components/Card/CardList";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import P11 from "/src/assets/images/p1.jpg";
+import P12 from "/src/assets/images/p1-2.png";
+import P2 from "/src/assets/images/p2.jpg";
+import P31 from "/src/assets/images/p3.jpg";
+import P32 from "/src/assets/images/p3-2.png";
+import P41 from "/src/assets/images/p4.jpg";
+import P42 from "/src/assets/images/p4-2.png";
 
 const MainPage = () => {
   const productList = [
@@ -7,7 +16,7 @@ const MainPage = () => {
       id: "1",
       name: "Denim Shirt Jacket-Black",
       price: 119000,
-      img: ["../src/assets/images/p1.jpg", "../src/assets/images/p1-2.png"],
+      img: [P11, P12],
 
       buySize: {
         white: { s: 0, m: 0, l: 0 },
@@ -29,7 +38,7 @@ const MainPage = () => {
       id: "2",
       name: "GOALSTUDIO Delight Tote Bag",
       price: 95200,
-      img: ["../src/assets/images/p2.jpg"],
+      img: [P2],
       buySize: {
         black: { s: 0, m: 0, l: 0 },
         navy: { s: 0, m: 0, l: 0 },
@@ -48,7 +57,7 @@ const MainPage = () => {
       id: "3",
       name: "Denim Shirt Jacket-Blue",
       price: 119000,
-      img: ["../src/assets/images/p3.jpg", "../src/assets/images/p3-2.png"],
+      img: [P31, P32],
       buySize: {
         white: { s: 0, m: 0, l: 0 },
         navy: { s: 0, m: 0, l: 0 },
@@ -68,7 +77,7 @@ const MainPage = () => {
       id: "4",
       name: "GOALSTUDIO Delight Bag",
       price: 119000,
-      img: ["../src/assets/images/p4.jpg", "../src/assets/images/p4-2.png"],
+      img: [P41, P42],
       buySize: {
         black: { s: 0, m: 0, l: 0 },
         navy: { s: 0, m: 0, l: 0 },
@@ -83,85 +92,44 @@ const MainPage = () => {
       totalStock: 3,
       category: "tops-t-shirts",
     },
-
-    {
-      id: "5",
-      name: "Denim Shirt Jacket-Black",
-      price: 119000,
-      img: ["../src/assets/images/p1-2.png", "../src/assets/images/p1.jpg"],
-      buySize: {
-        black: { s: 0, m: 0, l: 0 },
-        navy: { s: 0, m: 0, l: 0 },
-        khaki: { s: 0, m: 0, l: 0 },
-      },
-      buyQuantity: 0,
-      stock: {
-        black: { s: 10, m: 10, l: 10 },
-        navy: { s: 30, m: 0, l: 20 },
-        khaki: { s: 0, m: 20, l: 10 },
-      },
-      totalStock: 15,
-      category: "tops-t-shirts",
-    },
-    {
-      id: "6",
-      name: "GOALSTUDIO Delight Tote Bag",
-      price: 95200,
-      img: ["../src/assets/images/p2.jpg"],
-      buySize: {
-        black: { s: 0, m: 0, l: 0 },
-        navy: { s: 0, m: 0, l: 0 },
-        khaki: { s: 0, m: 0, l: 0 },
-      },
-      buyQuantity: 0,
-      stock: {
-        black: { s: 10, m: 10, l: 10 },
-        navy: { s: 30, m: 0, l: 20 },
-        khaki: { s: 0, m: 20, l: 10 },
-      },
-      totalStock: 10,
-      category: "tops-t-shirts",
-    },
-    {
-      id: "7",
-      name: "Denim Shirt Jacket-Blue",
-      price: 119000,
-      img: ["../src/assets/images/p3-2.png", "../src/assets/images/p3.jpg"],
-      buySize: {
-        black: { s: 0, m: 0, l: 0 },
-        navy: { s: 0, m: 0, l: 0 },
-        khaki: { s: 0, m: 0, l: 0 },
-      },
-      buyQuantity: 0,
-      stock: {
-        black: { s: 10, m: 0, l: 10 },
-        navy: { s: 10, m: 0, l: 10 },
-        khaki: { s: 10, m: 0, l: 10 },
-      },
-      totalStock: 15,
-      category: "pants",
-    },
-
-    {
-      id: "8",
-      name: "GOALSTUDIO Delight Bag",
-      price: 119000,
-      img: ["../src/assets/images/p4-2.png", "../src/assets/images/p4.jpg"],
-      buySize: {
-        black: { s: 0, m: 0, l: 0 },
-        navy: { s: 0, m: 0, l: 0 },
-        khaki: { s: 0, m: 0, l: 0 },
-      },
-      buyQuantity: 0,
-      stock: {
-        black: { s: 10, m: 10, l: 10 },
-        navy: { s: 30, m: 0, l: 20 },
-        khaki: { s: 0, m: 20, l: 10 },
-      },
-      totalStock: 3,
-      category: "bundle",
-    },
   ];
+  // const fetchedProducts = [];
+
+  // const [Data, setData] = useState([]);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     await axios({
+  //       method: "get",
+  //       url: "http://13.124.105.52:8080/product/list",
+  //     })
+  //       .then((result) => {
+  //         console.log("성공");
+  //         // console.log("result.data.content", result.data.content);
+  //         let products = result.data.content;
+  //         for (let i = 0; i < products.length; i++) {
+  //           fetchedProducts.push({
+  //             id: products[i].productId,
+  //             name: products[i].productName,
+  //             price: products[i].productPrice,
+  //             img: [],
+  //             stock: {
+  //               white: { s: 1, m: 1, l: 1 },
+  //               navy: { s: 1, m: 1, l: 1 },
+  //               khaki: { s: 1, m: 1, l: 1 },
+  //             },
+  //             totalStock: 9,
+  //             category: "tops-t-shirts",
+  //           });
+  //         }
+  //         console.log(result.data)
+  //         setData(fetchedProducts);
+  //       })
+  //       .catch((error) => {
+  //         console.log("실패");
+  //       });
+  //   };
+  //   getData();
+  // }, []);
 
   //카드 생성
   const renderCard = (product) => {
@@ -187,13 +155,13 @@ const MainPage = () => {
         <ItemListGrid>{productList.map(renderCard)}</ItemListGrid>
       </Section>
 
-      <Section>
+      {/* <Section>
         <ListTitle>
           <ListTitleText>FAKER X DECA</ListTitleText>
           <Bar />
         </ListTitle>
         <ItemListGrid>{productList.map(renderCard)}</ItemListGrid>
-      </Section>
+      </Section> */}
     </>
   );
 };
