@@ -7,7 +7,7 @@ import UnifiedCartCard from '../CartCard/UnifiedCartCard';
 import Ul from '../ui/Ul/Ul';
 import { useEffect, useState } from 'react';
 // import useDeliveryForm from '../../hooks/useDeliveryForm';
-import usePaymentForm from '../../hooks/usePaymentForm';
+// import usePaymentForm from '../../hooks/usePaymentForm';
 import { useDispatch } from 'react-redux';
 import { initialState, setDeliveryInput, setPhoneInput } from '../../store/slices/deliveryFormSlice';
 import { initialState as paymentInit  , setCardNumberInput, setPaymentInput } from '../../store/slices/paymentFormSlice';
@@ -16,7 +16,7 @@ const PurchaseCard = ({ userCartData, totalPrice, totalCount }) => {
   const pathName = useLocation().pathname;
 
   // const { deliveryInput } = useDeliveryForm();
-  const { paymentInput } = usePaymentForm();
+  // const { paymentInput } = usePaymentForm();
   const isCartPage = pathName === '/cart';
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -30,17 +30,20 @@ const PurchaseCard = ({ userCartData, totalPrice, totalCount }) => {
 
     if (name === 'purchase') return navigate('/order');
     if (name === 'payment') {
-      if (
-        // !allValuesEmpty(deliveryInput) && 
-        !allValuesEmpty(paymentInput)) {
+      // if (
+      //   // !allValuesEmpty(deliveryInput) && 
+      //   // !allValuesEmpty(paymentInput)
+      //   ) 
+        {
         setOrderData({ ...orderData, ...deliveryInput, ...paymentInput });
         dispatch(setDeliveryInput(initialState.deliveryInput));
         dispatch(setPhoneInput(initialState.phoneInput))
         dispatch(setCardNumberInput(paymentInit.cardNumberInput))
         dispatch(setPaymentInput(paymentInit.paymentInput));
-      } else {
-        alert('배송지 및 결제를 입력해주세요');
-      }
+      } 
+      // else {
+      //   alert('배송지 및 결제를 입력해주세요');
+      // }
     }
   };
 
