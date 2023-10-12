@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
+import { login } from '../../apis/authApi/authApi';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -12,19 +12,10 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        'http://15.165.177.248:8080/member/login',
-        {
-          email,
-          password,
-        }
-      );
-
-      console.log(response);
-
-      response.data.accessToken && navigate('/', { replace: true });
+      const response = await login({ email, password });
+      navigate('/');
     } catch (error) {
-      alert(error.response.data);
+      console.error(error.message);
     }
   };
 
@@ -61,7 +52,6 @@ const ContainerWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-
   .login-wrapper {
     width: 300px;
     margin: 0 auto;
@@ -70,30 +60,25 @@ const ContainerWrapper = styled.div`
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-
     > h2 {
       text-align: center;
       margin-bottom: 40px;
       font-weight: bold;
       font-size: 20px;
     }
-
     > form {
       display: flex;
       flex-direction: column;
-
       > label {
         font-size: 13px;
         margin-bottom: 10px;
       }
-
       > input {
         padding: 10px;
         margin-bottom: 15px;
         border: 1px solid #ccc;
         border-radius: 3px;
       }
-
       > button {
         background-color: black;
         color: #fff;
@@ -102,7 +87,6 @@ const ContainerWrapper = styled.div`
         border-radius: 3px;
         cursor: pointer;
         transition: background-color 0.3s;
-
         &:hover {
           background-color: #0056b3;
         }
