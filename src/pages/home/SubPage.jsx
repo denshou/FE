@@ -77,7 +77,7 @@ const SubPage = () => {
         khaki: { s: 10, m: 10, l: 0 },
       },
       totalStock: 15,
-      category: "tops-t-shirts",
+      category: "pants",
     },
 
     {
@@ -97,7 +97,7 @@ const SubPage = () => {
         khaki: { s: 1, m: 1, l: 1 },
       },
       totalStock: 3,
-      category: "tops-t-shirts",
+      category: "bundle",
     },
 
     {
@@ -139,7 +139,7 @@ const SubPage = () => {
         khaki: { s: 1, m: 1, l: 1 },
       },
       totalStock: 10,
-      category: "hoodies-sweatshirts",
+      category: "tops-t-shirts",
     },
     {
       id: "7",
