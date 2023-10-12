@@ -10,13 +10,15 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await login({ email, password });
-      navigate('/');
-    } catch (error) {
-      console.error(error.message);
-    }
+    localStorage.setItem('auth', true);
+    navigate('/');
+    window.location.reload();
+    // try {
+    //   const response = await login({ email, password });
+    //   navigate('/');
+    // } catch (error) {
+    //   console.error(error.message);
+    // }
   };
 
   return (

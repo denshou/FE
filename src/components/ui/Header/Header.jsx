@@ -1,9 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const search = "../src/assets/images/search.png";
+  const search = '../src/assets/images/search.png';
+
+  const navigate = useNavigate();
+
+  const auth = localStorage.getItem('auth');
+  const handleLogoutBtn = () => {
+    localStorage.removeItem('auth');
+    navigate('/');
+    window.location.reload();
+  };
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const headerRef = useRef(null);
@@ -12,14 +22,13 @@ const Header = () => {
   };
   const headerChange = () => {
     if (scrollPosition < 100) {
-      headerRef.current.style = "opacity:0";
+      headerRef.current.style = 'opacity:0';
     } else {
-      headerRef.current.style = "opacity:1";
+      headerRef.current.style = 'opacity:1';
     }
   };
   useEffect(() => {
-    window.addEventListener("scroll", updateScroll);
-
+    window.addEventListener('scroll', updateScroll);
     headerChange();
   }, [scrollPosition]);
   return (
@@ -33,13 +42,7 @@ const Header = () => {
 
         <HeaderInner>
           <StyledLink to="/">
-            <Logo
-            // onClick={() => {
-            //   sessionStorage.setItem("index", 1);
-            // }}
-            >
-              로고
-            </Logo>
+            <Logo>로고</Logo>
           </StyledLink>
           <Nav>
             <NavCategory>NEW</NavCategory>
@@ -53,14 +56,31 @@ const Header = () => {
             <NavCategory>SALE</NavCategory>
           </Nav>
           <UserArea>
-            <UserBtn>
-              <StyledLink to="/login">LOGIN</StyledLink>
-              {/* 로그인 되어 있다면 로그아웃 */}
-            </UserBtn>
-            <UserBtn>
-              <StyledLink to="/signup">JOIN</StyledLink>
-              {/* 로그인 되어 있다면 마이페이지 */}
-            </UserBtn>
+            {!auth && (
+              <>
+                <UserBtn>
+                  <StyledLink to="/login">LOGIN</StyledLink>
+                  {/* 로그인 안되어 있다면 로그인 */}
+                </UserBtn>
+                <UserBtn>
+                  <StyledLink to="/signup">JOIN</StyledLink>
+                  {/* 로그인 안되어 있다면 회원가입 */}
+                </UserBtn>
+              </>
+            )}
+            {auth && (
+              <>
+                <UserBtn>
+                  <StyledLink onClick={handleLogoutBtn}>LOGOUT</StyledLink>
+                  {/* 로그인 되어 있다면 로그아웃 */}
+                </UserBtn>
+                <UserBtn>
+                  <StyledLink to="/my">MYPAGE</StyledLink>
+                  {/* 로그인 되어 있다면 마이페이지 */}
+                </UserBtn>
+              </>
+            )}
+
             <UserBtn>
               <StyledLink to="/cart">
                 CART <CartCount>0</CartCount>

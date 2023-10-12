@@ -1,17 +1,53 @@
-import React from "react";
-import * as S from "./ProductDetailPageStyle";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from 'react';
+import * as S from './ProductDetailPageStyle';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getProductDetail } from '../../apis/getProductApi/getProductApi';
 
 const ProductDetailPage = () => {
-  const soldout = "../src/assets/images/soldout.png";
+  const soldout = '../src/assets/images/soldout.png';
 
   const { data: productData } = useLocation().state;
 
-  
+  const fetchedProducts = [];
+
+  const [Data, setData] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await getProductDetail(4);
+
+        console.log(response);
+        // for (let i = 0; i < products.length; i++) {
+        //   let imgInfo = products[i].goodsImageDtoList;
+        //   let imgs = [];
+        //   for (let j = 0; j < imgInfo.length; j++) {
+        //     imgs.push(imgInfo[j].productImageSave);
+        //   }
+        //   fetchedProducts.push({
+        //     id: products[i].productId,
+        //     name: products[i].productName,
+        //     price: products[i].productPrice,
+        //     img: imgs,
+        //     stock: {
+        //       white: { s: 1, m: 1, l: 1 },
+        //       navy: { s: 1, m: 1, l: 1 },
+        //       khaki: { s: 1, m: 1, l: 1 },
+        //     },
+        //     totalStock: 9,
+        //     category: 'tops-t-shirts',
+        //   });
+        // }
+        // setData(fetchedProducts);
+      } catch (e) {
+        console.log('실패');
+      }
+    };
+    getData();
+  }, []);
 
   const [isInitial, setIsInitial] = useState(true);
   const colors = Object.keys(productData.stock);
@@ -23,15 +59,15 @@ const ProductDetailPage = () => {
   // const [nonSize, setNonSize] = useState(1);
   const [firstOptionSelected, setFirstOptionSelected] = useState(false);
   const [secondOptionSelected, setSecondOptionSelected] = useState(false);
-  const [selectColor, setSelectColor] = useState("");
+  const [selectColor, setSelectColor] = useState('');
 
   const navigate = useNavigate();
   const [auth, setAuth] = useState(false);
 
   const handleCartBtn = () => {
     if (!auth) {
-      window.alert("로그인이 필요합니다.");
-      navigate("/login");
+      window.alert('로그인이 필요합니다.');
+      navigate('/login');
     }
   };
 
@@ -50,14 +86,14 @@ const ProductDetailPage = () => {
   for (let i = 0; i < colors.length; i++) {
     stock[colors[i] + `Stock`] = Object.values(productData.stock[colors[i]]);
     for (let j = 0; j < stock[colors[0] + `Stock`].length; j++) {
-      totalStock[colors[i]] += stock[colors[i] + "Stock"][j];
+      totalStock[colors[i]] += stock[colors[i] + 'Stock'][j];
     }
   }
   //input 수량 증가
   const handleUpButton = (e) => {
     for (let i = 0; i < colors.length; i++) {
       switch (e.target.value) {
-        case colors[i] + "s":
+        case colors[i] + 's':
           setSize((prev) => {
             return {
               ...prev,
@@ -65,7 +101,7 @@ const ProductDetailPage = () => {
             };
           });
           break;
-        case colors[i] + "m":
+        case colors[i] + 'm':
           setSize((prev) => {
             return {
               ...prev,
@@ -73,7 +109,7 @@ const ProductDetailPage = () => {
             };
           });
           break;
-        case colors[i] + "l":
+        case colors[i] + 'l':
           setSize((prev) => {
             return {
               ...prev,
@@ -88,7 +124,7 @@ const ProductDetailPage = () => {
   const handleDownButton = (e) => {
     for (let i = 0; i < colors.length; i++) {
       switch (e.target.value) {
-        case colors[i] + "s":
+        case colors[i] + 's':
           setSize((prev) => {
             return {
               ...prev,
@@ -96,7 +132,7 @@ const ProductDetailPage = () => {
             };
           });
           break;
-        case colors[i] + "m":
+        case colors[i] + 'm':
           setSize((prev) => {
             return {
               ...prev,
@@ -104,7 +140,7 @@ const ProductDetailPage = () => {
             };
           });
           break;
-        case colors[i] + "l":
+        case colors[i] + 'l':
           setSize((prev) => {
             return {
               ...prev,
@@ -119,7 +155,7 @@ const ProductDetailPage = () => {
   const changeQuantity = (e) => {
     for (let i = 0; i < colors.length; i++) {
       switch (e.target.id) {
-        case colors[i] + "s":
+        case colors[i] + 's':
           setSize((prev) => {
             return {
               ...prev,
@@ -127,7 +163,7 @@ const ProductDetailPage = () => {
             };
           });
           break;
-        case colors[i] + "m":
+        case colors[i] + 'm':
           setSize((prev) => {
             return {
               ...prev,
@@ -135,7 +171,7 @@ const ProductDetailPage = () => {
             };
           });
           break;
-        case colors[i] + "l":
+        case colors[i] + 'l':
           setSize((prev) => {
             return {
               ...prev,
@@ -150,19 +186,19 @@ const ProductDetailPage = () => {
   const deleteItem = (e) => {
     for (let i = 0; i < colors.length; i++) {
       switch (e.target.value) {
-        case colors[i] + "s":
+        case colors[i] + 's':
           setSize((prev) => {
             return { ...prev, [colors[i]]: { ...prev[colors[i]], s: 0 } };
           });
 
           break;
-        case colors[i] + "m":
+        case colors[i] + 'm':
           setSize((prev) => {
             return { ...prev, [colors[i]]: { ...prev[colors[i]], m: 0 } };
           });
 
           break;
-        case colors[i] + "l":
+        case colors[i] + 'l':
           setSize((prev) => {
             return { ...prev, [colors[i]]: { ...prev[colors[i]], l: 0 } };
           });
@@ -192,7 +228,7 @@ const ProductDetailPage = () => {
     setIsInitial(true);
     for (let i = 0; i < colors.length; i++) {
       switch (e.target.value) {
-        case colors[i] + "s":
+        case colors[i] + 's':
           setSize((prev) => {
             return {
               ...prev,
@@ -200,7 +236,7 @@ const ProductDetailPage = () => {
             };
           });
           break;
-        case colors[i] + "m":
+        case colors[i] + 'm':
           setSize((prev) => {
             return {
               ...prev,
@@ -208,7 +244,7 @@ const ProductDetailPage = () => {
             };
           });
           break;
-        case colors[i] + "l":
+        case colors[i] + 'l':
           setSize((prev) => {
             return {
               ...prev,
@@ -294,7 +330,7 @@ const ProductDetailPage = () => {
       //   setNonSize((prev) => prev + 1);
       //   break;
     }
-    setSelectColor("");
+    setSelectColor('');
   };
   //서버에 보낼 데이터
   const setBuySize = () => {
@@ -304,7 +340,7 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     setBuySize();
-    console.log("productData", productData);
+    console.log('productData', productData);
   }, [setBuySize, size, productData]);
   //색상 select box 옵션 렌더링
   const renderColorOptions = (color) => {
@@ -314,7 +350,7 @@ const ProductDetailPage = () => {
         value={color}
         disabled={totalStock[color] === 0 ? true : false}
       >
-        {color} {totalStock[color] === 0 && "[재고없음]"}
+        {color} {totalStock[color] === 0 && '[재고없음]'}
       </option>
     );
   };
@@ -325,25 +361,25 @@ const ProductDetailPage = () => {
         {selectColor === color && (
           <>
             <option
-              key={color + "s"}
-              value={color + "s"}
+              key={color + 's'}
+              value={color + 's'}
               disabled={productData.stock[color].s === 0 ? true : false}
             >
-              S {productData.stock[color].s === 0 && "[재고없음]"}
+              S {productData.stock[color].s === 0 && '[재고없음]'}
             </option>
             <option
-              key={color + "m"}
-              value={color + "m"}
+              key={color + 'm'}
+              value={color + 'm'}
               disabled={productData.stock[color].m === 0 ? true : false}
             >
-              M {productData.stock[color].m === 0 && "[재고없음]"}
+              M {productData.stock[color].m === 0 && '[재고없음]'}
             </option>
             <option
-              key={color + "l"}
-              value={color + "l"}
+              key={color + 'l'}
+              value={color + 'l'}
               disabled={productData.stock[color].l === 0 ? true : false}
             >
-              L {productData.stock[color].l === 0 && "[재고없음]"}
+              L {productData.stock[color].l === 0 && '[재고없음]'}
             </option>
           </>
         )}
@@ -363,21 +399,21 @@ const ProductDetailPage = () => {
             </p>
             <S.InputDiv>
               <S.InputNumber
-                id={color + "s"}
+                id={color + 's'}
                 type="number"
                 value={size[color].s}
                 onChange={changeQuantity}
               />
               <S.InputBtnImgDiv>
-                <S.CountUpBtn value={color + "s"} onClick={handleUpButton} />
+                <S.CountUpBtn value={color + 's'} onClick={handleUpButton} />
                 <S.CountDownBtn
-                  value={color + "s"}
+                  value={color + 's'}
                   onClick={handleDownButton}
                   disabled={size[color].s === 1 ? true : false}
                 />
               </S.InputBtnImgDiv>
             </S.InputDiv>
-            <S.DeleteOptionBtn onClick={deleteItem} value={color + "s"} />
+            <S.DeleteOptionBtn onClick={deleteItem} value={color + 's'} />
             <S.SelectedOptionPrice>
               {(productData.price * size[color].s).toLocaleString()}원
             </S.SelectedOptionPrice>
@@ -392,21 +428,21 @@ const ProductDetailPage = () => {
             </p>
             <S.InputDiv>
               <S.InputNumber
-                id={color + "m"}
+                id={color + 'm'}
                 type="number"
                 value={size[color].m}
                 onChange={changeQuantity}
               />
               <S.InputBtnImgDiv>
-                <S.CountUpBtn value={color + "m"} onClick={handleUpButton} />
+                <S.CountUpBtn value={color + 'm'} onClick={handleUpButton} />
                 <S.CountDownBtn
-                  value={color + "m"}
+                  value={color + 'm'}
                   onClick={handleDownButton}
                   disabled={size[color].m === 1 ? true : false}
                 />
               </S.InputBtnImgDiv>
             </S.InputDiv>
-            <S.DeleteOptionBtn onClick={deleteItem} value={color + "m"} />
+            <S.DeleteOptionBtn onClick={deleteItem} value={color + 'm'} />
             <S.SelectedOptionPrice>
               {(productData.price * size[color].m).toLocaleString()}원
             </S.SelectedOptionPrice>
@@ -421,21 +457,21 @@ const ProductDetailPage = () => {
             </p>
             <S.InputDiv>
               <S.InputNumber
-                id={color + "l"}
+                id={color + 'l'}
                 type="number"
                 value={size[color].l}
                 onChange={changeQuantity}
               />
               <S.InputBtnImgDiv>
-                <S.CountUpBtn value={color + "l"} onClick={handleUpButton} />
+                <S.CountUpBtn value={color + 'l'} onClick={handleUpButton} />
                 <S.CountDownBtn
-                  value={color + "l"}
+                  value={color + 'l'}
                   onClick={handleDownButton}
                   disabled={size[color].l === 1 ? true : false}
                 />
               </S.InputBtnImgDiv>
             </S.InputDiv>
-            <S.DeleteOptionBtn onClick={deleteItem} value={color + "l"} />
+            <S.DeleteOptionBtn onClick={deleteItem} value={color + 'l'} />
             <S.SelectedOptionPrice>
               {(productData.price * size[color].l).toLocaleString()}원
             </S.SelectedOptionPrice>
@@ -503,7 +539,7 @@ const ProductDetailPage = () => {
               <S.Options
                 className="option"
                 onChange={handleColorSelect}
-                value={secondOptionSelected ? "" : selectColor}
+                value={secondOptionSelected ? '' : selectColor}
               >
                 <option key="" value="" disabled={isInitial ? false : true}>
                   - [필수] 옵션을 선택해 주세요 -
@@ -520,7 +556,7 @@ const ProductDetailPage = () => {
                 className="option"
                 onChange={handleSizeSelect}
                 disabled={firstOptionSelected ? false : true}
-                value={secondOptionSelected ? "" : false}
+                value={secondOptionSelected ? '' : false}
               >
                 <option key="" value="">
                   - [필수] 옵션을 선택해 주세요 -
