@@ -6,7 +6,7 @@ import PaymentInfo from './PurchaseInfo';
 import UnifiedCartCard from '../CartCard/UnifiedCartCard';
 import Ul from '../ui/Ul/Ul';
 import { useEffect, useState } from 'react';
-import useDeliveryForm from '../../hooks/useDeliveryForm';
+// import useDeliveryForm from '../../hooks/useDeliveryForm';
 import usePaymentForm from '../../hooks/usePaymentForm';
 import { useDispatch } from 'react-redux';
 import { initialState, setDeliveryInput, setPhoneInput } from '../../store/slices/deliveryFormSlice';
@@ -15,7 +15,7 @@ import { initialState as paymentInit  , setCardNumberInput, setPaymentInput } fr
 const PurchaseCard = ({ userCartData, totalPrice, totalCount }) => {
   const pathName = useLocation().pathname;
 
-  const { deliveryInput } = useDeliveryForm();
+  // const { deliveryInput } = useDeliveryForm();
   const { paymentInput } = usePaymentForm();
   const isCartPage = pathName === '/cart';
   const navigate = useNavigate();
@@ -30,7 +30,9 @@ const PurchaseCard = ({ userCartData, totalPrice, totalCount }) => {
 
     if (name === 'purchase') return navigate('/order');
     if (name === 'payment') {
-      if (!allValuesEmpty(deliveryInput) && !allValuesEmpty(paymentInput)) {
+      if (
+        // !allValuesEmpty(deliveryInput) && 
+        !allValuesEmpty(paymentInput)) {
         setOrderData({ ...orderData, ...deliveryInput, ...paymentInput });
         dispatch(setDeliveryInput(initialState.deliveryInput));
         dispatch(setPhoneInput(initialState.phoneInput))
