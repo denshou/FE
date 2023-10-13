@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 
-const PostCode = ({ getAdressData, getPostCodeData }) => {
+const PostCode = ({ getAddressData, getPostCodeData }) => {
   const open = useDaumPostcodePopup();
 
   const handleComplete = (data) => {
@@ -21,7 +21,7 @@ const PostCode = ({ getAdressData, getPostCodeData }) => {
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
-    getAdressData(fullAddress);
+    getAddressData(fullAddress);
     getPostCodeData(zonecode);
   };
 

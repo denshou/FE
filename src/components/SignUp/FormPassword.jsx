@@ -39,18 +39,27 @@ export default FormPassword;
 const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+
   > label {
     margin-bottom: 10px;
   }
+
+
   > input {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 3px;
   }
+
+
+
   > p {
     color: red;
     margin-bottom: 10px;
     font-size: 12px;
   }
+
 `;
+

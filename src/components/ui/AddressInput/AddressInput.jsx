@@ -33,7 +33,7 @@ const AddressInput = ({
               ref={(ref) => addRef(name, ref)}
             />
             {name === 'recipient_zipcode' && (
-              <PostCodeButton getAdress={getAddress} />
+              <PostCodeButton getAdress={getAdress} />
             )}
           </div>
         ))}

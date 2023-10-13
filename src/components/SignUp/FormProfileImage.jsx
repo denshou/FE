@@ -59,6 +59,7 @@ const PreviewImg = styled.img`
 const Label = styled.label`
   text-align: center; // 텍스트를 가운데 정렬
   margin-bottom: 15px; // 아래쪽으로 마진 추가
+
   > input {
     padding: 10px;
     margin-bottom: 15px;
@@ -74,4 +75,6 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 3px;
   width: 95%;
+
 `;
+

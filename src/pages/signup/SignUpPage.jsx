@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import FormProfileImage from '../../components/SignUp/FormProfileImage.jsx';
@@ -9,6 +8,8 @@ import FormName from '../../components/SignUp/FormName.jsx';
 import FormAddress from '../../components/SignUp/FormAddress.jsx';
 import FormAddressDetail from '../../components/SignUp/FormAddressDetail.jsx';
 import FormPhoneNumber from '../../components/SignUp/FormPhoneNumber.jsx';
+
+import { signUp } from '../../apis/authApi/authApi.js';
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -83,14 +84,13 @@ function SignUpPage() {
       formDataToSend.append('gender', formData.gender);
       formDataToSend.append('profileImage', profileImage);
 
-      const response = await axios.post(
-        'http://13.124.105.52:8080/auth/signup',
-        formDataToSend
-      );
-      // signUp(formDataToSend)
-      response.data.success && navigate('/login', { replace: true });
+
+      const response = await signUp(formDataToSend);
+
+      navigate('/login', { replace: true });
+
     } catch (error) {
-      alert(error.response.data);
+      console.error(error);
     }
   };
 
@@ -123,18 +123,13 @@ function SignUpPage() {
             formData={formData}
             handleInputChange={handleInputChange}
           />
-          <Label htmlFor="postalCode">우편번호</Label>
-          <Input
-            type="text"
-            id="addressZipcode"
-            name="addressZipcode"
-            value={formData.addressZipcode}
-            onChange={handleInputChange}
-          />
+
           <FormAddress
             formData={formData}
+            setFormData={setFormData}
             handleInputChange={handleInputChange}
           />
+
           <FormAddressDetail
             formData={formData}
             handleInputChange={handleInputChange}
@@ -142,7 +137,9 @@ function SignUpPage() {
 
           {phoneNumberError && <ErrorText>{phoneNumberError}</ErrorText>}
           <CheckBoxGroup>
-          <Label>성별</Label>
+
+            <Label>성별</Label>
+
             <GenderDiv>
               <CheckBoxLabel>
                 Male
@@ -164,7 +161,9 @@ function SignUpPage() {
                   onChange={handleInputChange}
                 />
               </CheckBoxLabel>
-              </GenderDiv>
+
+            </GenderDiv>
+
           </CheckBoxGroup>
 
           <Button onClick={(e) => handleRegister(e)}>Register</Button>
@@ -239,6 +238,7 @@ const Button = styled.button`
     background-color: #0056b3;
   }
 `;
+
 const ErrorText = styled.p`
   color: red;
   margin-bottom: 10px;
@@ -247,4 +247,6 @@ const ErrorText = styled.p`
 
 const GenderDiv = styled.div`
   margin-bottom: 10px;
+
 `;
+

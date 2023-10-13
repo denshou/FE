@@ -1,19 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { removeCookie } from '../../../utils/cookie';
+import AuthContext from '../../../context/AuthContext';
 
 const Header = () => {
   const search = '../src/assets/images/search.png';
 
-  const navigate = useNavigate();
-
-  const auth = localStorage.getItem('auth');
-  const handleLogoutBtn = () => {
-    localStorage.removeItem('auth');
-    navigate('/');
-    window.location.reload();
-  };
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const headerRef = useRef(null);
@@ -27,10 +21,24 @@ const Header = () => {
       headerRef.current.style = 'opacity:1';
     }
   };
+
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
   useEffect(() => {
     window.addEventListener('scroll', updateScroll);
     headerChange();
+
+    return () => window.removeEventListener('scroll', updateScroll);
   }, [scrollPosition]);
+
+  const auth = useContext(AuthContext);
+
+  const handleLogout = () => {
+    removeCookie('accessToken');
+    removeCookie('refreshToken');
+    setIsLoggedIn(false);
+  };
+
   return (
     <>
       <Head>
@@ -56,30 +64,20 @@ const Header = () => {
             <NavCategory>SALE</NavCategory>
           </Nav>
           <UserArea>
-            {!auth && (
-              <>
-                <UserBtn>
-                  <StyledLink to="/login">LOGIN</StyledLink>
-                  {/* 로그인 안되어 있다면 로그인 */}
-                </UserBtn>
-                <UserBtn>
-                  <StyledLink to="/signup">JOIN</StyledLink>
-                  {/* 로그인 안되어 있다면 회원가입 */}
-                </UserBtn>
-              </>
+
+            {isLoggedIn ? (
+              <UserBtn onClick={handleLogout}>
+                <StyledLink to="/">LOGOUT</StyledLink>
+              </UserBtn>
+            ) : (
+              <UserBtn>
+                <StyledLink to="/login">LOGIN</StyledLink>
+              </UserBtn>
             )}
-            {auth && (
-              <>
-                <UserBtn>
-                  <StyledLink onClick={handleLogoutBtn}>LOGOUT</StyledLink>
-                  {/* 로그인 되어 있다면 로그아웃 */}
-                </UserBtn>
-                <UserBtn>
-                  <StyledLink to="/my">MYPAGE</StyledLink>
-                  {/* 로그인 되어 있다면 마이페이지 */}
-                </UserBtn>
-              </>
-            )}
+            <UserBtn>
+              <StyledLink to="/signup">JOIN</StyledLink>
+              {/* 로그인 되어 있다면 마이페이지 */}
+            </UserBtn>
 
             <UserBtn>
               <StyledLink to="/cart">

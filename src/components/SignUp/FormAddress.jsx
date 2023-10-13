@@ -2,27 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import PostCodeButton from '../../components/PostCodeButton/PostCodeButton';
 
-const FormAddress = ({ formData, handleInputChange }) => {
-  const handleComplete = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = '';
-
-    if (data.addressType === 'R') {
-      if (data.bname !== '') {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== '') {
-        extraAddress +=
-          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-    }
-
-    handleInputChange({
-      target: {
-        name: 'address',
-        value: fullAddress,
-      },
+const FormAddress = ({ formData, handleInputChange, setFormData }) => {
+  const getAdress = (addressData, zoneCodeData) => {
+    setFormData({
+      ...formData,
+      address: addressData,
+      addressZipcode: zoneCodeData,
     });
   };
 
@@ -30,7 +15,19 @@ const FormAddress = ({ formData, handleInputChange }) => {
     <ContainerWrapper>
       <Label htmlFor="address">주소</Label>
 
-      <PostCodeButton getAdress={handleComplete} />
+
+      <div>
+        <ZipcodeInput
+          type="text"
+          id="addressZipcode"
+          name="addressZipcode"
+          value={formData.addressZipcode}
+          placeholder="우편번호"
+          onChange={handleInputChange}
+        />
+        <PostCodeButton getAdress={getAdress} />
+      </div>
+
 
       <Input
         type="text"
@@ -60,3 +57,11 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 3px;
 `;
+
+const ZipcodeInput = styled.input`
+  width: 100px;
+  height: 30px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+`;
+

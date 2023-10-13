@@ -13,12 +13,12 @@ const createInstance = (contentType) => {
 
   instance.interceptors.request.use(
     (config) => {
-      const token = getCookie('refreshToken');
+      const token = getCookie('accessToken');
+
       if (token) config.headers['X-AUTH-TOKEN'] = `${token}`;
       return config;
     },
     (error) => {
-      // 요청 실패 시 처리할 로직을 여기에 작성합니다.
       return Promise.reject(error);
     }
   );
@@ -47,9 +47,7 @@ const createInstance = (contentType) => {
       return Promise.reject(error);
     }
   );
-
   return instance;
 };
-
 export const axiosInstance = createInstance('application/json');
 export const axiosImgInstance = createInstance('multipart/form-data');

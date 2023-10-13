@@ -21,9 +21,13 @@ export default FormName;
 const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+
   > label {
     margin-bottom: 10px;
   }
+
+
   > input {
     padding: 10px;
     margin-bottom: 15px;
@@ -31,3 +35,4 @@ const ContainerWrapper = styled.div`
     border-radius: 3px;
   }
 `;
+

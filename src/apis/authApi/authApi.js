@@ -1,6 +1,8 @@
 import {
   axiosImgInstance,
-  axiosInstance,} from '../axiosInstance/axiosInstance.js';
+  axiosInstance,
+} from '../axiosInstance/axiosInstance.js';
+
 
 export const signUp = async (signupData) => {
   const response = await axiosImgInstance.post('auth/signup', signupData);
@@ -10,10 +12,15 @@ export const signUp = async (signupData) => {
 
 export const login = async (loginData) => {
   const response = await axiosInstance.post('auth/login', loginData);
-  return response;
+  if (response.status === 200) {
+    localStorage.setItem('isLoggedIn', 'true');
+  }
+
 };
 
 export const checkEmail = async (checkEmailData) => {
   const response = await axiosInstance.post('auth/idcheck', checkEmailData);
   return response;
+};
+
 };
