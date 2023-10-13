@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { useContext, useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { removeCookie } from '../../../utils/cookie';
+import AuthContext from '../../../context/AuthContext';
 
 const Header = () => {
-  const search = "../src/assets/images/search.png";
+  const search = '../src/assets/images/search.png';
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const headerRef = useRef(null);
@@ -12,16 +14,26 @@ const Header = () => {
   };
   const headerChange = () => {
     if (scrollPosition < 100) {
-      headerRef.current.style = "opacity:0";
+      headerRef.current.style = 'opacity:0';
     } else {
-      headerRef.current.style = "opacity:1";
+      headerRef.current.style = 'opacity:1';
     }
   };
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   useEffect(() => {
-    window.addEventListener("scroll", updateScroll);
+    window.addEventListener('scroll', updateScroll);
 
     headerChange();
+    return () => window.removeEventListener('scroll', updateScroll);
   }, [scrollPosition]);
+
+  const auth = useContext(AuthContext);
+
+  const handleLogout = () => {
+    removeCookie('accessToken');
+    removeCookie('refreshToken');
+    setIsLoggedIn(false);
+  };
   return (
     <>
       <Head>
@@ -53,10 +65,15 @@ const Header = () => {
             <NavCategory>SALE</NavCategory>
           </Nav>
           <UserArea>
-            <UserBtn>
-              <StyledLink to="/login">LOGIN</StyledLink>
-              {/* 로그인 되어 있다면 로그아웃 */}
-            </UserBtn>
+            {isLoggedIn ? (
+              <UserBtn onClick={handleLogout}>
+                <StyledLink to="/">LOGOUT</StyledLink>
+              </UserBtn>
+            ) : (
+              <UserBtn>
+                <StyledLink to="/login">LOGIN</StyledLink>
+              </UserBtn>
+            )}
             <UserBtn>
               <StyledLink to="/signup">JOIN</StyledLink>
               {/* 로그인 되어 있다면 마이페이지 */}
