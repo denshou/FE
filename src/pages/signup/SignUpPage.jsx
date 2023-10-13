@@ -8,6 +8,7 @@ import FormName from '../../components/SignUp/FormName.jsx';
 import FormAddress from '../../components/SignUp/FormAddress.jsx';
 import FormAddressDetail from '../../components/SignUp/FormAddressDetail.jsx';
 import FormPhoneNumber from '../../components/SignUp/FormPhoneNumber.jsx';
+
 import { signUp } from '../../apis/authApi/authApi.js';
 
 function SignUpPage() {
@@ -83,9 +84,11 @@ function SignUpPage() {
       formDataToSend.append('gender', formData.gender);
       formDataToSend.append('profileImage', profileImage);
 
+
       const response = await signUp(formDataToSend);
 
       navigate('/login', { replace: true });
+
     } catch (error) {
       console.error(error);
     }
@@ -126,6 +129,7 @@ function SignUpPage() {
             setFormData={setFormData}
             handleInputChange={handleInputChange}
           />
+
           <FormAddressDetail
             formData={formData}
             handleInputChange={handleInputChange}
@@ -133,7 +137,9 @@ function SignUpPage() {
 
           {phoneNumberError && <ErrorText>{phoneNumberError}</ErrorText>}
           <CheckBoxGroup>
+
             <Label>성별</Label>
+
             <GenderDiv>
               <CheckBoxLabel>
                 Male
@@ -155,7 +161,9 @@ function SignUpPage() {
                   onChange={handleInputChange}
                 />
               </CheckBoxLabel>
+
             </GenderDiv>
+
           </CheckBoxGroup>
 
           <Button onClick={(e) => handleRegister(e)}>Register</Button>
@@ -239,4 +247,6 @@ const ErrorText = styled.p`
 
 const GenderDiv = styled.div`
   margin-bottom: 10px;
+
 `;
+

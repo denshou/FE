@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { checkEmail } from '../../apis/authApi/authApi';
+
 import Wrap from '../../components/ui/Wrap/Wrap';
+
 
 const FormEmail = ({ handleInputChange, formData }) => {
   const [emailConfirm, setEmailConfirm] = useState('');
@@ -44,6 +46,7 @@ const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
+
   > label {
     margin-bottom: 10px;
   }
@@ -51,6 +54,7 @@ const ContainerWrapper = styled.div`
   > div {
     display: flex;
     justify-content: space-between;
+
 
     > input {
       padding: 10px;
@@ -60,6 +64,8 @@ const ContainerWrapper = styled.div`
       width: 75%;
       margin-right: 10px;
     }
+
+
 
     > button {
       background-color: black;
@@ -71,6 +77,7 @@ const ContainerWrapper = styled.div`
       transition: background-color 0.3s;
       font-size: 12px;
       height: 38px;
+
 
       &:hover {
         background-color: #261734;

@@ -3,6 +3,7 @@ import {
   axiosInstance,
 } from '../axiosInstance/axiosInstance.js';
 
+
 export const signUp = async (signupData) => {
   const response = await axiosImgInstance.post('auth/signup', signupData);
 
@@ -15,7 +16,6 @@ export const login = async (loginData) => {
     localStorage.setItem('isLoggedIn', 'true');
   }
 
-  return response;
 };
 
 export const checkEmail = async (checkEmailData) => {
@@ -23,8 +23,4 @@ export const checkEmail = async (checkEmailData) => {
   return response;
 };
 
-export const logout = async () => {
-  localStorage.removeItem('isLoggedIn');
-
-  return true;
 };

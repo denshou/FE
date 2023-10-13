@@ -10,9 +10,11 @@ const FormAddress = ({ formData, handleInputChange, setFormData }) => {
       addressZipcode: zoneCodeData,
     });
   };
+
   return (
     <ContainerWrapper>
       <Label htmlFor="address">주소</Label>
+
 
       <div>
         <ZipcodeInput
@@ -25,6 +27,7 @@ const FormAddress = ({ formData, handleInputChange, setFormData }) => {
         />
         <PostCodeButton getAdress={getAdress} />
       </div>
+
 
       <Input
         type="text"
@@ -61,5 +64,4 @@ const ZipcodeInput = styled.input`
   margin-bottom: 15px;
   border: 1px solid #ccc;
 `;
-
 

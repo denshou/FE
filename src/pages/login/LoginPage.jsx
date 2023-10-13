@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { login } from '../../apis/authApi/authApi';
+
 import { getCookie, setCookie } from '../../utils/cookie';
 import { AuthContext } from '../../context/AuthContext';
+
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
 
     try {
       const response = await login({ email, password });
@@ -27,6 +30,7 @@ const LoginPage = () => {
     } catch (error) {
       console.error(error.message);
     }
+
   };
 
   return (

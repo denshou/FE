@@ -11,8 +11,11 @@ const addressInfo = [
 
 const AddressInput = ({
   deliveryInput,
+  validateAddress,
   handleDelieryInputChange,
   getAddress,
+  addRef,
+  alertMessage,
 }) => {
   return (
     <label>
@@ -25,14 +28,16 @@ const AddressInput = ({
               name={name}
               placeholder={placeholder}
               value={deliveryInput[name]}
+              onBlur={validateAddress }
               onChange={handleDelieryInputChange}
+              ref={(ref) => addRef(name, ref)}
             />
             {name === 'recipient_zipcode' && (
               <PostCodeButton getAdress={getAdress} />
             )}
           </div>
         ))}
-        <Text />
+        <Text text={alertMessage} />
       </div>
     </label>
   );

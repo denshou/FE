@@ -22,9 +22,11 @@ const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
+
   > label {
     margin-bottom: 10px;
   }
+
 
   > input {
     padding: 10px;

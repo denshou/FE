@@ -5,11 +5,13 @@ const FormAddressDetail = ({ formData, handleInputChange }) => {
   return (
     <ContainerWrapper>
       <label htmlFor="address"></label>
+
       <input
         type="text"
         id="addressDetail"
         name="addressDetail"
         placeholder="상세주소"
+
         value={formData.addressDetail}
         onChange={handleInputChange}
       />
@@ -23,9 +25,11 @@ const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
+
   > label {
     margin-bottom: 10px;
   }
+
 
   > input {
     padding: 10px;
@@ -33,4 +37,6 @@ const ContainerWrapper = styled.div`
     border: 1px solid #ccc;
     border-radius: 3px;
   }
+
 `;
+

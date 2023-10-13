@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,6 +7,7 @@ import AuthContext from '../../../context/AuthContext';
 
 const Header = () => {
   const search = '../src/assets/images/search.png';
+
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const headerRef = useRef(null);
@@ -19,6 +21,7 @@ const Header = () => {
       headerRef.current.style = 'opacity:1';
     }
   };
+
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
@@ -47,13 +50,7 @@ const Header = () => {
 
         <HeaderInner>
           <StyledLink to="/">
-            <Logo
-            // onClick={() => {
-            //   sessionStorage.setItem("index", 1);
-            // }}
-            >
-              로고
-            </Logo>
+            <Logo>로고</Logo>
           </StyledLink>
           <Nav>
             <NavCategory>NEW</NavCategory>
@@ -67,6 +64,7 @@ const Header = () => {
             <NavCategory>SALE</NavCategory>
           </Nav>
           <UserArea>
+
             {isLoggedIn ? (
               <UserBtn onClick={handleLogout}>
                 <StyledLink to="/">LOGOUT</StyledLink>
@@ -80,6 +78,7 @@ const Header = () => {
               <StyledLink to="/signup">JOIN</StyledLink>
               {/* 로그인 되어 있다면 마이페이지 */}
             </UserBtn>
+
             <UserBtn>
               <StyledLink to="/cart">
                 CART <CartCount>0</CartCount>
@@ -150,6 +149,7 @@ const Nav = styled.ul`
 `;
 const UserArea = styled.div`
   display: flex;
+  min-width: 190px;
   font-size: 12px;
   color: #999;
   letter-spacing: 0.03em;
@@ -173,6 +173,7 @@ const CartCount = styled.span`
 `;
 const Logo = styled.div`
   margin-left: 7rem;
+  min-width: 2rem;
 `;
 const NavCategory = styled.li`
   padding: 8px 0 30px;
